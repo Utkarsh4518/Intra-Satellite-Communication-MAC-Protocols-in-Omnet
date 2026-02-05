@@ -1,0 +1,6 @@
+out/
+*.exe
+*.o
+*.o.d
+.last-copts
+.qtenvrc
