@@ -1,0 +1,19 @@
+# Trend indicator thresholds for post-processing (qualitative only).
+# These are observational criteria for labeling regimes. They are NOT fitted,
+# NOT extrapolated, and do NOT imply optimality. See TREND_INDICATORS.md.
+
+# --- Observations (computed from scalars) ---
+# No thresholds here; these are raw or aggregated metrics.
+
+# --- Interpretation: latency unbounded ---
+# When max E2EDelayMax over nodes exceeds this (seconds), we label as high latency.
+# Chosen as a multiple of typical packet interval; not a guarantee of "unbounded" in theory.
+latency_unbounded_threshold_sec: 2.0
+
+# --- Interpretation: collision-dominated regime ---
+# When (sum of Collisions) / (sum of TX_Attempts) exceeds this ratio, we label as collision-dominated.
+collision_dominated_ratio_threshold: 0.3
+
+# --- Interpretation: retry exhaustion onset ---
+# When (sum of RetriesExhausted) / (sum of Generated) exceeds this ratio, we label as retry exhaustion onset.
+retry_exhaustion_onset_ratio_threshold: 0.05

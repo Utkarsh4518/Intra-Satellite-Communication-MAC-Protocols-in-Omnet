@@ -1,0 +1,35 @@
+# Rule-based MAC selection (deterministic, explainable).
+# Evaluation order matters: first match wins. No optimizer, no ML.
+#
+# Inputs: latency_sensitivity ("high"|"low"), node_count (int), offered_load ("low"|"medium"|"high" or numeric)
+
+rules:
+  - id: 1
+    condition: "latency_sensitivity == \"high\""
+    output: "MacTDMA"
+    reason: "Latency critical -> bounded delay"
+
+  - id: 2
+    condition: "offered_load == \"high\""
+    output: "MacTDMA"
+    reason: "High load -> avoid contention"
+
+  - id: 3
+    condition: "node_count >= 9"
+    output: "MacTDMA"
+    reason: "Many nodes -> contention-based MACs degrade"
+
+  - id: 4
+    condition: "latency_sensitivity == \"low\" AND node_count <= 4 AND offered_load == \"low\""
+    output: "MacCSMA"
+    reason: "Low contention, relaxed latency"
+
+  - id: 5
+    condition: "latency_sensitivity == \"low\" AND node_count <= 8 AND offered_load == \"low or medium\""
+    output: "MacCSMA_RTS"
+    reason: "Moderate contention, hidden-node"
+
+  - id: 6
+    condition: "default"
+    output: "MacTDMA"
+    reason: "Default to deterministic MAC"

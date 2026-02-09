@@ -14,8 +14,8 @@ class MacTDMA : public MacBase {
   protected:
     void initialize() override {
         int N = (int)par("numNodes");
-        double packetsPerNodePerSec = 20.0;
-        slotTime = 1.0 / (packetsPerNodePerSec * N);
+        double pktInt = par("packetInterval").doubleValue();
+        slotTime = pktInt / N;
         int index = getParentModule()->getIndex();
         txEvent = new cMessage("tdma_tx");
         scheduleAt(simTime() + index * slotTime, txEvent);

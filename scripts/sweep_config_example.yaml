@@ -1,0 +1,21 @@
+# Example sweep configuration for automated experiment runs.
+# Copy to sweep_config.yaml and edit as needed. Run: python run_sweep.py
+
+# Base seed for reproducibility. Each experiment gets seed = base_seed + experiment_id.
+base_seed: 1000
+
+# Simulation time limit (seconds) for all runs.
+sim_time_limit: 50
+
+# Network (topology). numNodes is swept; numHops is fixed by this choice (Ring=2, Star/Bus=1).
+network: lifihiddennode.LiFiHiddenRing
+
+# Sweep dimensions
+node_counts: [4, 8, 12]
+offered_loads: [0.05, 0.1, 0.2]   # packetInterval in seconds (e.g. 0.05 => 20 pkts/s per node)
+mac_protocols: [MacTDMA, MacCSMA, MacALOHA, MacCSMA_RTS]
+
+# Paths (relative to project root). Leave empty to use defaults.
+# sim_exe: src/LiFiHiddenNode2
+# ini_file: simulations/omnetpp.ini
+# results_root: results/sweep
